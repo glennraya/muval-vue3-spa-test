@@ -12,8 +12,8 @@ const handleLogout = async () => {
 </script>
 
 <template>
-    <div class="relative flex min-h-screen items-center justify-center bg-gray-50">
-        <nav class="absolute right-2 top-2 flex gap-2">
+    <div class="relative flex min-h-screen items-center justify-center bg-gradient-to-tl from-cyan-200">
+        <nav class="absolute right-4 top-4 flex gap-2">
             <RouterLink
                 to="/"
                 class="rounded-lg px-6 py-2 text-gray-700 decoration-transparent hover:text-black"

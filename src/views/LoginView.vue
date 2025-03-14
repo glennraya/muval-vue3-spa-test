@@ -13,27 +13,25 @@ const handleLogin = async () => {
     await axios.get('/sanctum/csrf-cookie');
 
     try {
-        const response = await axios.post('/login-spa', {
+        await axios.post('/login-spa', {
             email: email.value,
             password: password.value,
         });
-        validationError.value = response.data;
 
         // Redirect to dashboard after successful login
         router.push('/dashboard');
     } catch (error) {
-        console.log(error);
-
-        throw error;
+        validationError.value = error.response.data.invalid_credentials;
     }
 };
 </script>
 
 <template>
     <div>
+        <h1 class="mb-4 text-center text-3xl font-bold">MuvalTasker v1.0</h1>
         <form
             @submit.prevent="handleLogin"
-            class="flex w-[440px] flex-col gap-4 rounded-xl bg-white p-8 shadow-xl shadow-black/5"
+            class="flex w-[540px] flex-col gap-4 rounded-xl border border-gray-200 bg-white p-8 shadow-xl shadow-black/5"
         >
             <div class="flex flex-col">
                 <label for="email">Email</label>
@@ -41,7 +39,6 @@ const handleLogin = async () => {
                     id="email"
                     type="email"
                     class="rounded-xl border-none bg-gray-100 p-3 focus:ring-2 focus:ring-inset focus:ring-blue-500"
-                    placeholder="youremail@example.com"
                     v-model="email"
                 />
             </div>
@@ -64,7 +61,7 @@ const handleLogin = async () => {
                 v-if="validationError"
                 class="rounded-lg bg-red-100 p-4 text-center text-red-800"
             >
-                {{ validationError.email }}
+                {{ validationError }}
             </p>
         </form>
     </div>

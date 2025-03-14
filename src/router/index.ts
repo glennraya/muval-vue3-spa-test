@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 import HomeView from '../views/HomeView.vue';
 import DashboardView from '../views/DashboardView.vue';
+import EditTaskView from '../views/EditTaskView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,13 @@ const router = createRouter({
             component: () => import('../views/LoginView.vue'),
             meta: { requiresGuest: true }
         },
+        {
+            path: '/tasks/:id/edit',
+            name: 'task.edit',
+            component: EditTaskView,
+            meta: { requiresAuth: true }
+        }
+
     ],
 });
 
