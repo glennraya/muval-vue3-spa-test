@@ -1,23 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from '../plugins/axios';
+
+const router = useRouter();
 
 const email = ref('');
 const password = ref('');
 
+const validationError = ref('');
 const handleLogin = async () => {
     await axios.get('/sanctum/csrf-cookie');
 
     try {
-        const response = await axios.post('/api/login', {
+        const response = await axios.post('/login-spa', {
             email: email.value,
             password: password.value,
         });
+        validationError.value = response.data;
 
-        console.log('Login successful', response.data);
-        return response.data;
+        // Redirect to dashboard after successful login
+        router.push('/dashboard');
     } catch (error) {
-        console.error('Login failed', error.response?.data);
+        console.log(error);
+
         throw error;
     }
 };
@@ -53,6 +59,13 @@ const handleLogin = async () => {
             <div class="flex flex-col">
                 <button class="w-full rounded-full bg-black py-4 text-white">Sign In</button>
             </div>
+
+            <p
+                v-if="validationError"
+                class="rounded-lg bg-red-100 p-4 text-center text-red-800"
+            >
+                {{ validationError.email }}
+            </p>
         </form>
     </div>
 </template>

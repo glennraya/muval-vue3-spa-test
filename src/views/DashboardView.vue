@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import axios from '../plugins/axios';
+</script>
 
 <template>
-    <div></div>
+    <div>Dashboard View</div>
 </template>
