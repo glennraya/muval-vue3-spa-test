@@ -3,13 +3,13 @@ import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
-    <header>
+    <!-- <header>
         <div class="my-5">
             <h1 class="mb-2 text-2xl">Your new app</h1>
 
             <nav>
                 <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="/about">About</RouterLink>
+                <RouterLink to="/about">Login</RouterLink>
             </nav>
         </div>
 
@@ -18,15 +18,35 @@ import { RouterLink, RouterView } from 'vue-router';
 
     <div class="mt-5">
         <RouterView />
+    </div> -->
+    <div class="relative flex min-h-screen items-center justify-center bg-gray-50">
+        <nav class="absolute right-2 top-2 flex gap-2">
+            <RouterLink
+                to="/"
+                class="rounded-lg px-6 py-2 text-gray-700 decoration-transparent hover:text-black"
+            >
+                Home
+            </RouterLink>
+            <RouterLink
+                to="/login"
+                class="flex items-center gap-2 rounded-full bg-black px-6 py-2 text-white decoration-transparent shadow-xl shadow-blue-600/20 transition duration-300 ease-in-out hover:scale-110 hover:bg-gray-700 active:scale-90"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="size-4"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+
+                <span>Login</span>
+            </RouterLink>
+        </nav>
+        <RouterView />
     </div>
 </template>
-
-<style scoped>
-nav {
-    @apply my-2;
-
-    a {
-        @apply mr-2;
-    }
-}
-</style>
