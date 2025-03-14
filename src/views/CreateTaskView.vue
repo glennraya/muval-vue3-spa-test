@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from '../plugins/axios';
 
-const route = useRoute();
 const router = useRouter();
-const taskId = route.params.id;
 
 const task = ref({
     title: '',
@@ -13,21 +11,15 @@ const task = ref({
     status: 'pending',
 });
 
-onMounted(() => {
-    axios.get(`/api/tasks/${taskId}/edit`).then((response) => {
-        task.value = response.data.task;
-    });
-});
-
-const handleUpdate = async () => {
+const handleSubmit = async () => {
     await axios
-        .patch(`/api/tasks/${taskId}`, {
+        .post(`/api/tasks`, {
             title: task.value.title,
             description: task.value.description,
             status: task.value.status,
         })
         .then((response) => {
-            router.push('/dashboard'); // Redirect to dashboard on success
+            router.push('/dashboard');
         })
         .catch((error) => {
             //
@@ -37,9 +29,9 @@ const handleUpdate = async () => {
 
 <template>
     <div class="flex flex-col">
-        <h1 class="mb-4 text-center text-4xl font-bold">Update Task</h1>
+        <h1 class="mb-4 text-center text-4xl font-bold">Create New Task</h1>
         <form
-            @submit.prevent="handleUpdate"
+            @submit.prevent="handleSubmit"
             class="flex w-[440px] flex-col gap-4 rounded-xl border border-gray-200 bg-white p-8 shadow-xl shadow-black/5"
         >
             <div class="flex flex-col">
@@ -49,6 +41,7 @@ const handleUpdate = async () => {
                     type="text"
                     class="rounded-xl border border-gray-300 shadow-md shadow-black/5 p-3 focus:ring-2 focus:ring-inset focus:ring-blue-500"
                     v-model="task.title"
+                    autofocus
                 />
             </div>
 
@@ -74,7 +67,7 @@ const handleUpdate = async () => {
             </div>
 
             <div class="flex flex-col">
-                <button class="w-full rounded-full bg-black py-4 text-white">Update</button>
+                <button class="w-full rounded-full bg-black py-4 text-white">Create Task</button>
             </div>
 
             <div class="flex flex-col">

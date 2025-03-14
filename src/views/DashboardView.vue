@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import axios from '../plugins/axios';
 
-// const router = useRouter();
+const router = useRouter();
 
 const tasks = ref([]);
 
@@ -17,14 +17,92 @@ onMounted(() => {
             console.log(error.response.data);
         });
 });
+
+const showDeleteTaskDialog = ref(false);
+
+const selectedTask = ref(null);
+const openDialog = (taskId: number) => {
+    showDeleteTaskDialog.value = true;
+    selectedTask.value = taskId;
+};
+
+const closeDialog = () => {
+    showDeleteTaskDialog.value = false;
+};
+
+const handleDeleteTask = async () => {
+    await axios
+        .delete(`/api/tasks/${selectedTask.value}`)
+        .then(() => {
+            tasks.value = tasks.value.filter((task) => task.id !== selectedTask.value);
+            closeDialog();
+        })
+        .catch((error) => {
+            throw error;
+        });
+};
 </script>
 
 <template>
-    <div class="flex flex-col gap-2">
-        <h1 class="text-4xl font-bold">Available Tasks</h1>
-        <div
-            class="flex min-h-24 w-full max-w-screen-md flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
-        >
+    <!-- Dialog Backdrop -->
+    <div
+        v-if="showDeleteTaskDialog"
+        class="fixed inset-0 z-40 bg-black/50"
+        @click="closeDialog"
+    ></div>
+
+    <!-- Dialog Box -->
+    <dialog
+        ref="dialogRef"
+        :open="showDeleteTaskDialog"
+        class="fixed z-50 rounded-lg border p-6"
+    >
+        <div class="flex flex-col">
+            <h2 class="text-lg font-bold">Delete Task</h2>
+            <p class="mt-2">Are you sure you want to delete the selected task?</p>
+            <div class="flex justify-end gap-1">
+                <button
+                    @click="closeDialog"
+                    class="mt-4 self-end bg-transparent px-4 py-2 text-sm text-gray-500 hover:bg-transparent hover:text-black"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    @click.prevent="handleDeleteTask"
+                    class="mt-4 self-end rounded-full bg-black px-4 py-2 text-sm text-white"
+                >
+                    Yes please
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <div class="flex max-w-screen-lg flex-col gap-2">
+        <header class="flex items-center justify-between">
+            <h1 class="text-4xl font-bold">My Tasks</h1>
+
+            <RouterLink
+                to="tasks/create"
+                class="flex items-center gap-2 rounded-full bg-blue-500 px-4 py-2 font-semibold text-white decoration-transparent hover:bg-blue-700"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="size-4"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+
+                <span>New Task</span>
+            </RouterLink>
+        </header>
+        <div class="flex min-h-24 w-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
             <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
                 <thead class="bg-black text-xs uppercase text-white">
                     <tr>
@@ -45,6 +123,12 @@ onMounted(() => {
                             class="px-6 py-3"
                         >
                             Description
+                        </th>
+                        <th
+                            scope="col"
+                            class="px-6 py-3"
+                        >
+                            Status
                         </th>
                         <th
                             scope="col"
@@ -71,6 +155,23 @@ onMounted(() => {
                             {{ task.title }}
                         </th>
                         <td class="px-6 py-4">{{ task.description }}</td>
+                        <td class="px-6 py-4">
+                            <span
+                                v-if="task.status === 'pending'"
+                                class="rounded-md bg-gray-100 px-2 py-1 text-xs font-semibold uppercase"
+                                >Pending</span
+                            >
+                            <span
+                                v-if="task.status === 'in_progress'"
+                                class="whitespace-nowrap rounded-md bg-blue-100 px-2 py-1 text-xs font-semibold uppercase"
+                                >In Progress</span
+                            >
+                            <span
+                                v-if="task.status === 'complete'"
+                                class="rounded-md bg-green-100 px-2 py-1 text-xs font-semibold uppercase"
+                                >Complete</span
+                            >
+                        </td>
                         <td>
                             <div class="flex gap-2">
                                 <RouterLink
@@ -90,6 +191,7 @@ onMounted(() => {
                                 </RouterLink>
                                 <button
                                     class="rounded-md bg-red-600 p-1 text-white decoration-transparent hover:bg-red-800"
+                                    @click.prevent="openDialog(task.id)"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -109,6 +211,12 @@ onMounted(() => {
                     </tr>
                 </tbody>
             </table>
+            <p
+                class="mt-2 rounded-md bg-gray-100 py-2 text-center"
+                v-if="tasks.length === 0"
+            >
+                There are no tasks yet.
+            </p>
         </div>
     </div>
 </template>
