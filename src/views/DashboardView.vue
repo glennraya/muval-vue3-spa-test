@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import axios from '../plugins/axios';
-
-const router = useRouter();
 
 const tasks = ref([]);
 
@@ -21,15 +18,19 @@ onMounted(() => {
 const showDeleteTaskDialog = ref(false);
 
 const selectedTask = ref(null);
+
+// Open the delete confirmation dialog
 const openDialog = (taskId: number) => {
     showDeleteTaskDialog.value = true;
     selectedTask.value = taskId;
 };
 
+//  Close the delete confirmation dialog
 const closeDialog = () => {
     showDeleteTaskDialog.value = false;
 };
 
+// Delete the selected task
 const handleDeleteTask = async () => {
     await axios
         .delete(`/api/tasks/${selectedTask.value}`)
@@ -47,7 +48,7 @@ const handleDeleteTask = async () => {
     <!-- Dialog Backdrop -->
     <div
         v-if="showDeleteTaskDialog"
-        class="fixed inset-0 z-40 bg-black/50"
+        class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
         @click="closeDialog"
     ></div>
 
@@ -55,10 +56,10 @@ const handleDeleteTask = async () => {
     <dialog
         ref="dialogRef"
         :open="showDeleteTaskDialog"
-        class="fixed z-50 rounded-lg border p-6"
+        class="fixed z-50 rounded-xl border p-6"
     >
         <div class="flex flex-col">
-            <h2 class="text-lg font-bold">Delete Task</h2>
+            <h2 class="text-xl font-bold">Delete Task</h2>
             <p class="mt-2">Are you sure you want to delete the selected task?</p>
             <div class="flex justify-end gap-1">
                 <button
@@ -70,7 +71,7 @@ const handleDeleteTask = async () => {
 
                 <button
                     @click.prevent="handleDeleteTask"
-                    class="mt-4 self-end rounded-full bg-black px-4 py-2 text-sm text-white"
+                    class="mt-4 self-end rounded-xl bg-black px-4 py-2 text-sm text-white"
                 >
                     Yes please
                 </button>
@@ -84,7 +85,7 @@ const handleDeleteTask = async () => {
 
             <RouterLink
                 to="tasks/create"
-                class="flex items-center gap-2 rounded-full bg-blue-500 px-4 py-2 font-semibold text-white decoration-transparent hover:bg-blue-700"
+                class="flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2 font-semibold text-white decoration-transparent hover:bg-blue-700"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

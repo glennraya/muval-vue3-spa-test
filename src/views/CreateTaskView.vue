@@ -39,8 +39,9 @@ const handleSubmit = async () => {
                 <input
                     id="title"
                     type="text"
-                    class="rounded-xl border border-gray-300 shadow-md shadow-black/5 p-3 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
                     v-model="task.title"
+                    placeholder="Bench press 300lbs."
                     autofocus
                 />
             </div>
@@ -50,14 +51,15 @@ const handleSubmit = async () => {
                 <textarea
                     id="description"
                     rows="5"
-                    class="rounded-xl border border-gray-300 shadow-md shadow-black/5 p-3 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    placeholder="Give your task a good description."
                     v-model="task.description"
                 ></textarea>
             </div>
             <div class="flex flex-col">
                 <label for="status">Status</label>
                 <select
-                    class="rounded-xl border border-gray-300 shadow-md shadow-black/5 p-3 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
                     v-model="task.status"
                 >
                     <option value="pending">Pending</option>
@@ -67,13 +69,13 @@ const handleSubmit = async () => {
             </div>
 
             <div class="flex flex-col">
-                <button class="w-full rounded-full bg-black py-4 text-white">Create Task</button>
+                <button class="w-full rounded-xl bg-black py-4 text-white">Create Task</button>
             </div>
 
             <div class="flex flex-col">
                 <RouterLink
                     to="/dashboard"
-                    class="w-full rounded-full bg-gray-200 py-4 text-center font-medium text-black decoration-transparent hover:bg-gray-300"
+                    class="w-full rounded-xl bg-gray-200 py-4 text-center font-medium text-black decoration-transparent hover:bg-gray-300"
                 >
                     Back to tasks list
                 </RouterLink>

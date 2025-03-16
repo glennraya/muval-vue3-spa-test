@@ -42,7 +42,8 @@ const handleSubmit = async () => {
                 <input
                     id="name"
                     type="text"
-                    class="rounded-xl border border-gray-300 bg-gray-100 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    placeholder="Please enter your first or full name."
                     v-model="name"
                 />
                 <p
@@ -58,7 +59,8 @@ const handleSubmit = async () => {
                 <input
                     id="email"
                     type="email"
-                    class="rounded-xl border border-gray-300 bg-gray-100 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    placeholder="Please provide us with a valid email address."
                     v-model="email"
                 />
                 <p
@@ -74,7 +76,8 @@ const handleSubmit = async () => {
                 <input
                     id="password"
                     type="password"
-                    class="rounded-xl border border-gray-300 bg-gray-100 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    placeholder="Minimum of eight characters."
                     v-model="password"
                 />
                 <p
@@ -90,18 +93,19 @@ const handleSubmit = async () => {
                 <input
                     id="confirm"
                     type="password"
-                    class="rounded-xl border border-gray-300 bg-gray-100 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    placeholder="Please confirm your password."
                     v-model="password_confirmation"
                 />
             </div>
 
-            <div class="flex flex-col">
+            <div class="mt-2 flex flex-col">
                 <button class="w-full rounded-xl bg-black py-4 text-white">Sign Up</button>
             </div>
 
             <div class="flex flex-col">
                 <RouterLink
-                    to="/register"
+                    to="/login"
                     class="max-w-fit self-center border-b border-transparent py-2 text-center text-black decoration-transparent hover:border-black"
                 >
                     Already have an account?

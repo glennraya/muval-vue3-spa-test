@@ -39,7 +39,8 @@ const handleLogin = async () => {
                 <input
                     id="email"
                     type="email"
-                    class="rounded-xl border border-gray-300 bg-gray-100 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    placeholder="walterwhite@mail.com"
                     v-model="email"
                 />
                 <p
@@ -55,7 +56,7 @@ const handleLogin = async () => {
                 <input
                     id="password"
                     type="password"
-                    class="rounded-xl border border-gray-300 bg-gray-100 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
                     v-model="password"
                 />
                 <p
@@ -66,7 +67,7 @@ const handleLogin = async () => {
                 </p>
             </div>
 
-            <div class="flex flex-col">
+            <div class="mt-2 flex flex-col">
                 <button class="w-full rounded-xl bg-black py-4 text-white">Sign In</button>
             </div>
 
