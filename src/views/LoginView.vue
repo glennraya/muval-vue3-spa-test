@@ -8,7 +8,7 @@ const router = useRouter();
 const email = ref('');
 const password = ref('');
 
-const validationError = ref([]);
+const validationError = ref<Record<string, string[]>>({});
 const handleLogin = async () => {
     await axios.get('/sanctum/csrf-cookie');
 
@@ -20,9 +20,12 @@ const handleLogin = async () => {
 
         // Redirect to dashboard after successful login
         router.push('/dashboard');
-    } catch (error) {
-        // validationError.value = error.response.data.invalid_credentials;
-        validationError.value = error.response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error) && error.response?.data?.errors) {
+            validationError.value = error.response.data.errors;
+        } else {
+            validationError.value = { general: ['An unexpected error occurred.'] };
+        }
     }
 };
 </script>
@@ -45,9 +48,9 @@ const handleLogin = async () => {
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
-                    v-if="validationError.errors && validationError.errors.email"
+                    v-if="validationError.email"
                 >
-                    {{ validationError.errors.email[0] }}
+                    {{ validationError.email[0] }}
                 </p>
             </div>
 
@@ -61,9 +64,9 @@ const handleLogin = async () => {
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
-                    v-if="validationError.errors && validationError.errors.password"
+                    v-if="validationError.password"
                 >
-                    {{ validationError.errors.password[0] }}
+                    {{ validationError.password[0] }}
                 </p>
             </div>
 

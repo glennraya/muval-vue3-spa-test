@@ -2,7 +2,21 @@
 import { onMounted, ref } from 'vue';
 import axios from '../plugins/axios';
 
-const tasks = ref([]);
+interface Task {
+    id: number;
+    title: string;
+    description: string;
+    status: string;
+    user: User;
+}
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
+
+const tasks = ref<Task[]>([]);
 
 onMounted(() => {
     axios
@@ -17,7 +31,7 @@ onMounted(() => {
 
 const showDeleteTaskDialog = ref(false);
 
-const selectedTask = ref(null);
+const selectedTask = ref<number | null>(null);
 
 // Open the delete confirmation dialog
 const openDialog = (taskId: number) => {

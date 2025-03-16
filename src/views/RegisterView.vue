@@ -10,7 +10,8 @@ const email = ref('');
 const password = ref('');
 const password_confirmation = ref('');
 
-const validationError = ref([]);
+// const validationError = ref([]);
+const validationError = ref<Record<string, string[]>>({});
 const handleSubmit = async () => {
     await axios.get('/sanctum/csrf-cookie');
 
@@ -24,8 +25,13 @@ const handleSubmit = async () => {
 
         // Redirect to dashboard after successful login
         router.push('/dashboard');
-    } catch (error) {
-        validationError.value = error.response.data;
+    } catch (error: unknown) {
+        // validationError.value = error.response.data;
+        if (axios.isAxiosError(error) && error.response?.data?.errors) {
+            validationError.value = error.response.data.errors;
+        } else {
+            validationError.value = { general: ['An unexpected error occurred.'] };
+        }
     }
 };
 </script>
@@ -48,9 +54,9 @@ const handleSubmit = async () => {
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
-                    v-if="validationError.errors && validationError.errors.name"
+                     v-if="validationError.name"
                 >
-                    {{ validationError.errors.name[0] }}
+                    {{ validationError.name[0] }}
                 </p>
             </div>
 
@@ -65,9 +71,9 @@ const handleSubmit = async () => {
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
-                    v-if="validationError.errors && validationError.errors.email"
+                     v-if="validationError.email"
                 >
-                    {{ validationError.errors.email[0] }}
+                    {{ validationError.email[0] }}
                 </p>
             </div>
 
@@ -82,9 +88,9 @@ const handleSubmit = async () => {
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
-                    v-if="validationError.errors && validationError.errors.password"
+                     v-if="validationError.password"
                 >
-                    {{ validationError.errors.password[0] }}
+                    {{ validationError.password[0] }}
                 </p>
             </div>
 
