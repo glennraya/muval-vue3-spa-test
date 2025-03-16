@@ -182,9 +182,9 @@ const handleDeleteTask = async () => {
                                 >In Progress</span
                             >
                             <span
-                                v-if="task.status === 'complete'"
+                                v-if="task.status === 'completed'"
                                 class="rounded-md bg-green-100 px-2 py-1 text-xs font-semibold uppercase"
-                                >Complete</span
+                                >Completed</span
                             >
                         </td>
                         <td>

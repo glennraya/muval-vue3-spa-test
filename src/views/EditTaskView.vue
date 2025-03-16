@@ -47,7 +47,7 @@ const handleUpdate = async () => {
                 <input
                     id="title"
                     type="text"
-                    class="rounded-xl border border-gray-300 shadow-md shadow-black/5 p-3 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
                     v-model="task.title"
                 />
             </div>
@@ -57,19 +57,19 @@ const handleUpdate = async () => {
                 <textarea
                     id="description"
                     rows="5"
-                    class="rounded-xl border border-gray-300 shadow-md shadow-black/5 p-3 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
                     v-model="task.description"
                 ></textarea>
             </div>
             <div class="flex flex-col">
                 <label for="status">Status</label>
                 <select
-                    class="rounded-xl border border-gray-300 shadow-md shadow-black/5 p-3 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
                     v-model="task.status"
                 >
                     <option value="pending">Pending</option>
                     <option value="in_progress">In Progress</option>
-                    <option value="complete">Complete</option>
+                    <option value="completed">Completed</option>
                 </select>
             </div>
 

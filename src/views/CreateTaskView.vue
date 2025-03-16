@@ -64,7 +64,7 @@ const handleSubmit = async () => {
                 >
                     <option value="pending">Pending</option>
                     <option value="in_progress">In Progress</option>
-                    <option value="complete">Complete</option>
+                    <option value="completed">Completed</option>
                 </select>
             </div>
 
