@@ -1,5 +1,10 @@
 # Setup Instructions
 
+## Fork or Clone this Repository
+```
+git clone git@github.com:glennraya/muval-vue3-spa-test.git
+```
+
 ## Install NPM Dependencies
 ```
 npm install
