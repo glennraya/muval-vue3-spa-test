@@ -51,7 +51,7 @@ const handleLogin = async () => {
                     id="email"
                     type="email"
                     class="input-style"
-                    :class="{ '!border-2 !border-red-500': validationError.email }"
+                    :class="{ '!border-2 !border-red-500': validationError.email && validationError.email.length > 0 }"
                     placeholder="walterwhite@mail.com"
                     v-model="email"
                     @input="clearError('email')"
@@ -70,7 +70,9 @@ const handleLogin = async () => {
                     id="password"
                     type="password"
                     class="input-style"
-                    :class="{ '!border-2 !border-red-500': validationError.password }"
+                    :class="{
+                        '!border-2 !border-red-500': validationError.password && validationError.password.length > 0,
+                    }"
                     v-model="password"
                     @input="clearError('password')"
                 />

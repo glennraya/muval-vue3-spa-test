@@ -62,7 +62,7 @@ const handleUpdate = async () => {
                     id="title"
                     type="text"
                     class="input-style"
-                    :class="{ '!border-2 !border-red-500': validationError.title }"
+                    :class="{ '!border-2 !border-red-500': validationError.title && validationError.title.length > 0 }"
                     v-model="task.title"
                     @input="clearError('title')"
                 />
@@ -80,7 +80,10 @@ const handleUpdate = async () => {
                     id="description"
                     rows="5"
                     class="input-style"
-                    :class="{ '!border-2 !border-red-500': validationError.description }"
+                    :class="{
+                        '!border-2 !border-red-500':
+                            validationError.description && validationError.description.length > 0,
+                    }"
                     v-model="task.description"
                     @input="clearError('description')"
                 ></textarea>

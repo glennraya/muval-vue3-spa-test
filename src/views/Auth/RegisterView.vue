@@ -56,7 +56,7 @@ const handleSubmit = async () => {
                     id="name"
                     type="text"
                     class="input-style"
-                    :class="{ '!border-2 !border-red-500': validationError.name }"
+                    :class="{ '!border-2 !border-red-500': validationError.name && validationError.name.length > 0 }"
                     placeholder="Please enter your first or full name."
                     v-model="name"
                     @input="clearError('name')"
@@ -75,7 +75,7 @@ const handleSubmit = async () => {
                     id="email"
                     type="email"
                     class="input-style"
-                    :class="{ '!border-2 !border-red-500': validationError.email }"
+                    :class="{ '!border-2 !border-red-500': validationError.email && validationError.email.length > 0 }"
                     placeholder="Please provide us with a valid email address."
                     v-model="email"
                     @input="clearError('email')"
@@ -94,7 +94,9 @@ const handleSubmit = async () => {
                     id="password"
                     type="password"
                     class="input-style"
-                    :class="{ '!border-2 !border-red-500': validationError.password }"
+                    :class="{
+                        '!border-2 !border-red-500': validationError.password && validationError.password.length > 0,
+                    }"
                     placeholder="Minimum of eight characters."
                     v-model="password"
                     @input="clearError('password')"
@@ -113,7 +115,9 @@ const handleSubmit = async () => {
                     id="confirm"
                     type="password"
                     class="input-style"
-                    :class="{ '!border-2 !border-red-500': validationError.password }"
+                    :class="{
+                        '!border-2 !border-red-500': validationError.password && validationError.password.length > 0,
+                    }"
                     placeholder="Please confirm your password."
                     v-model="password_confirmation"
                     @input="clearError('password')"
