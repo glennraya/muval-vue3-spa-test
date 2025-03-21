@@ -9,6 +9,14 @@ const email = ref('');
 const password = ref('');
 
 const validationError = ref<Record<string, string[]>>({});
+
+// Clear validation errors
+const clearError = (field: string) => {
+    if (validationError.value[field]) {
+        validationError.value[field] = null;
+    }
+};
+
 const handleLogin = async () => {
     await axios.get('/sanctum/csrf-cookie');
 
@@ -43,8 +51,10 @@ const handleLogin = async () => {
                     id="email"
                     type="email"
                     class="input-style"
+                    :class="{ '!border-2 !border-red-500': validationError.email }"
                     placeholder="walterwhite@mail.com"
                     v-model="email"
+                    @input="clearError('email')"
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
@@ -60,7 +70,9 @@ const handleLogin = async () => {
                     id="password"
                     type="password"
                     class="input-style"
+                    :class="{ '!border-2 !border-red-500': validationError.password }"
                     v-model="password"
+                    @input="clearError('password')"
                 />
                 <p
                     class="mt-1 font-medium text-red-500"

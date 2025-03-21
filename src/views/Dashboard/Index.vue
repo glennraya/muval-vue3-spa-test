@@ -117,7 +117,9 @@ const handleDeleteTask = async () => {
                 <span>New Task</span>
             </RouterLink>
         </header>
-        <div class="flex min-h-24 w-full flex-col rounded-xl border-gray-200 bg-white p-6 shadow-xl shadow-black/5">
+        <div
+            class="flex min-h-24 w-full flex-col rounded-xl border-[5px] border-cyan-600/30 bg-white p-6 shadow-xl shadow-black/5"
+        >
             <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
                 <thead class="bg-black text-xs uppercase text-white">
                     <tr>

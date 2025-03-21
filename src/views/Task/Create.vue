@@ -56,7 +56,7 @@ const handleSubmit = async () => {
                     type="text"
                     placeholder="Bench press 300lbs."
                     class="input-style"
-                    :class="{ 'border-2 border-red-500': validationError.title }"
+                    :class="{ '!border-2 !border-red-500': validationError.title }"
                     v-model="task.title"
                     @input="clearError('title')"
                 />
@@ -75,7 +75,7 @@ const handleSubmit = async () => {
                     rows="5"
                     class="input-style"
                     placeholder="Give your task a good description."
-                    :class="{ 'border-2 border-red-500': validationError.description }"
+                    :class="{ '!border-2 !border-red-500': validationError.description }"
                     v-model="task.description"
                     @input="clearError('description')"
                 ></textarea>

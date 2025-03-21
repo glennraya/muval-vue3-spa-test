@@ -54,15 +54,15 @@ const handleUpdate = async () => {
         <h1 class="mb-4 text-center text-4xl font-bold">Update Task</h1>
         <form
             @submit.prevent="handleUpdate"
-            class="flex w-[440px] flex-col gap-4 rounded-xl bg-white p-8 shadow-xl shadow-black/5"
+            class="flex w-[440px] flex-col gap-4 rounded-xl border-[5px] border-cyan-600/30 bg-white p-8 shadow-xl shadow-black/5"
         >
             <div class="flex flex-col">
                 <label for="title">Title</label>
                 <input
                     id="title"
                     type="text"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:border-transparent focus:outline-none focus:ring focus:ring-cyan-500"
-                    :class="{ 'border-2 border-red-500': validationError.title }"
+                    class="input-style"
+                    :class="{ '!border-2 !border-red-500': validationError.title }"
                     v-model="task.title"
                     @input="clearError('title')"
                 />
@@ -80,7 +80,7 @@ const handleUpdate = async () => {
                     id="description"
                     rows="5"
                     class="input-style"
-                    :class="{ 'border-2 border-red-500': validationError.description }"
+                    :class="{ '!border-2 !border-red-500': validationError.description }"
                     v-model="task.description"
                     @input="clearError('description')"
                 ></textarea>

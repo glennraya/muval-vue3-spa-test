@@ -12,6 +12,13 @@ const password_confirmation = ref('');
 
 // const validationError = ref([]);
 const validationError = ref<Record<string, string[]>>({});
+
+// Clear validation errors
+const clearError = (field: string) => {
+    if (validationError.value[field]) {
+        validationError.value[field] = null;
+    }
+};
 const handleSubmit = async () => {
     await axios.get('/sanctum/csrf-cookie');
 
@@ -41,7 +48,7 @@ const handleSubmit = async () => {
         <h1 class="mb-4 text-center text-3xl font-bold">Register for an account</h1>
         <form
             @submit.prevent="handleSubmit"
-            class="flex w-[540px] flex-col gap-4 rounded-xl border border-gray-300 bg-white p-8 shadow-xl shadow-black/5"
+            class="flex w-[540px] flex-col gap-4 rounded-xl border-[5px] border-cyan-600/30 bg-white p-8 shadow-xl shadow-black/5"
         >
             <div class="flex flex-col">
                 <label for="name">Name</label>
@@ -49,8 +56,10 @@ const handleSubmit = async () => {
                     id="name"
                     type="text"
                     class="input-style"
+                    :class="{ '!border-2 !border-red-500': validationError.name }"
                     placeholder="Please enter your first or full name."
                     v-model="name"
+                    @input="clearError('name')"
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
@@ -66,8 +75,10 @@ const handleSubmit = async () => {
                     id="email"
                     type="email"
                     class="input-style"
+                    :class="{ '!border-2 !border-red-500': validationError.email }"
                     placeholder="Please provide us with a valid email address."
                     v-model="email"
+                    @input="clearError('email')"
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
@@ -83,8 +94,10 @@ const handleSubmit = async () => {
                     id="password"
                     type="password"
                     class="input-style"
+                    :class="{ '!border-2 !border-red-500': validationError.password }"
                     placeholder="Minimum of eight characters."
                     v-model="password"
+                    @input="clearError('password')"
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
@@ -100,8 +113,10 @@ const handleSubmit = async () => {
                     id="confirm"
                     type="password"
                     class="input-style"
+                    :class="{ '!border-2 !border-red-500': validationError.password }"
                     placeholder="Please confirm your password."
                     v-model="password_confirmation"
+                    @input="clearError('password')"
                 />
             </div>
 

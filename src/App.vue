@@ -42,7 +42,7 @@ const handleLogout = async () => {
                         <template v-if="!authStore.isAuthenticated">
                             <RouterLink
                                 to="/login"
-                                class="flex items-center gap-2 rounded-xl bg-black px-6 py-2 text-white decoration-transparent shadow-xl shadow-blue-600/20 transition duration-300 ease-in-out hover:scale-110 hover:bg-gray-700 active:scale-90"
+                                class="flex items-center gap-2 rounded-xl bg-black px-6 py-2 text-white decoration-transparent shadow-xl shadow-blue-600/20 transition duration-300 ease-in-out hover:bg-gray-700 active:scale-90"
                             >
                                 <LockIcon />
                                 <span>Login</span>
