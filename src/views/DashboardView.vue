@@ -85,7 +85,7 @@ const handleDeleteTask = async () => {
 
                 <button
                     @click.prevent="handleDeleteTask"
-                    class="mt-4 self-end rounded-xl bg-black px-4 py-2 text-sm text-white"
+                    class="mt-4 self-end rounded-xl bg-red-500 px-4 py-2 text-sm text-white hover:bg-red-700"
                 >
                     Yes please
                 </button>
@@ -93,7 +93,7 @@ const handleDeleteTask = async () => {
         </div>
     </dialog>
 
-    <div class="flex max-w-screen-lg flex-col gap-2">
+    <div class="flex w-[540px] flex-col gap-2 lg:w-[1024px]">
         <header class="flex items-center justify-between">
             <h1 class="text-4xl font-bold">My Tasks</h1>
 
@@ -117,7 +117,7 @@ const handleDeleteTask = async () => {
                 <span>New Task</span>
             </RouterLink>
         </header>
-        <div class="flex min-h-24 w-full flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div class="flex min-h-24 w-full flex-col rounded-xl border-gray-200 bg-white p-6 shadow-xl shadow-black/5">
             <table class="w-full text-left text-sm text-gray-500 rtl:text-right">
                 <thead class="bg-black text-xs uppercase text-white">
                     <tr>

@@ -3,7 +3,10 @@ import { ref } from 'vue';
 import axios from '../plugins/axios';
 
 export const useAuthStore = defineStore('auth', () => {
+    // Global state that holds the value of the authenticated user.
     const user = ref(null);
+
+    // Global state that indicates if the user is authenticated.
     const isAuthenticated = ref(false);
 
     // Check if user is logged in

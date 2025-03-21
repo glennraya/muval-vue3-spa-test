@@ -14,6 +14,7 @@ npm install
 In order to establish connection to the Laravel backend API, you must specify Axios' base API URL located in `src/plugins/axios.ts`. Typically, a Laravel server starts at `http://localhost:8000`. If you have a different port number, please make sure you specify the right values.
 
 ```
+// src/plugins/axios.ts
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/';
 ```
 

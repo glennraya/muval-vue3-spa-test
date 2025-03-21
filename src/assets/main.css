@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-    font-family: 'Inter', serif;
+    /* font-family: 'Inter', serif; */
+    @apply font-sans text-sm;
 }
 
 button {
@@ -31,5 +32,5 @@ pre {
 }
 
 /* #app {
-    @apply m-5;
+    @apply text-sm;
 } */

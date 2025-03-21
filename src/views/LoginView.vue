@@ -35,7 +35,7 @@ const handleLogin = async () => {
         <h1 class="mb-4 text-center text-3xl font-bold">Login</h1>
         <form
             @submit.prevent="handleLogin"
-            class="flex w-[540px] flex-col gap-3 rounded-xl border border-gray-200 bg-white p-8 shadow-sm"
+            class="flex w-[540px] flex-col gap-3 rounded-xl bg-white p-8 shadow-lg shadow-black/5"
         >
             <div class="flex flex-col">
                 <label for="email">Email</label>
