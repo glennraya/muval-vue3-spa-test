@@ -19,7 +19,7 @@ const validationError = ref<Record<string, string[]>>({});
 // Clear validation errors
 const clearError = (field: string) => {
     if (validationError.value[field]) {
-        validationError.value[field] = null;
+        validationError.value[field] = [];
     }
 };
 

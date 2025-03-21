@@ -29,7 +29,7 @@ const handleLogout = async () => {
 
                 <div class="flex items-center gap-2">
                     <template v-if="$route.path !== '/login'">
-                        <span v-if="authStore.isAuthenticated">Welcome {{ authStore.user.name }}!</span>
+                        <span v-if="authStore.isAuthenticated">Welcome {{ authStore?.user?.name }}!</span>
                         <RouterLink
                             to="/dashboard"
                             class="flex items-center gap-2 rounded-xl bg-black px-6 py-2 text-white decoration-transparent transition duration-300 ease-in-out hover:bg-gray-700 active:scale-90"

@@ -2,9 +2,14 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from '../plugins/axios';
 
+interface User {
+    name: string;
+    email: string;
+}
+
 export const useAuthStore = defineStore('auth', () => {
     // Global state that holds the value of the authenticated user.
-    const user = ref(null);
+    const user = ref<User | null>(null);
 
     // Global state that indicates if the user is authenticated.
     const isAuthenticated = ref(false);
