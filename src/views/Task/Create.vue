@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import axios from '../plugins/axios';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from '../../plugins/axios';
 
-const route = useRoute();
 const router = useRouter();
-const taskId = route.params.id;
 
 const task = ref({
     title: '',
@@ -13,7 +11,7 @@ const task = ref({
     status: 'pending',
 });
 
-// Validation state
+// Validation error state
 const validationError = ref<Record<string, string[]>>({});
 
 // Clear validation errors
@@ -23,21 +21,15 @@ const clearError = (field: string) => {
     }
 };
 
-onMounted(() => {
-    axios.get(`/api/tasks/${taskId}/edit`).then((response) => {
-        task.value = response.data.task;
-    });
-});
-
-const handleUpdate = async () => {
+const handleSubmit = async () => {
     await axios
-        .patch(`/api/tasks/${taskId}`, {
+        .post(`/api/tasks`, {
             title: task.value.title,
             description: task.value.description,
             status: task.value.status,
         })
         .then((response) => {
-            router.push('/dashboard'); // Redirect to dashboard on success
+            router.push('/dashboard');
         })
         .catch((error: unknown) => {
             if (axios.isAxiosError(error) && error.response?.data?.errors) {
@@ -51,17 +43,19 @@ const handleUpdate = async () => {
 
 <template>
     <div class="flex flex-col">
-        <h1 class="mb-4 text-center text-4xl font-bold">Update Task</h1>
+        <h1 class="mb-4 text-center text-4xl font-bold">Create New Task</h1>
         <form
-            @submit.prevent="handleUpdate"
-            class="flex w-[440px] flex-col gap-4 rounded-xl bg-white p-8 shadow-xl shadow-black/5"
+            @submit.prevent="handleSubmit"
+            class="flex w-[440px] flex-col gap-4 rounded-xl border-[5px] border-cyan-600/30 bg-white p-8 shadow-xl shadow-black/5"
         >
             <div class="flex flex-col">
                 <label for="title">Title</label>
                 <input
+                    autofocus
                     id="title"
                     type="text"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    placeholder="Bench press 300lbs."
+                    class="input-style"
                     :class="{ 'border-2 border-red-500': validationError.title }"
                     v-model="task.title"
                     @input="clearError('title')"
@@ -79,7 +73,8 @@ const handleUpdate = async () => {
                 <textarea
                     id="description"
                     rows="5"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
+                    placeholder="Give your task a good description."
                     :class="{ 'border-2 border-red-500': validationError.description }"
                     v-model="task.description"
                     @input="clearError('description')"
@@ -94,7 +89,7 @@ const handleUpdate = async () => {
             <div class="flex flex-col">
                 <label for="status">Status</label>
                 <select
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
                     :class="{ 'border-2 border-red-500': validationError.status }"
                     v-model="task.status"
                 >
@@ -111,7 +106,7 @@ const handleUpdate = async () => {
             </div>
 
             <div class="flex flex-col">
-                <button class="w-full rounded-xl bg-black py-4 text-white">Update</button>
+                <button class="w-full rounded-xl bg-black py-4 text-white">Create Task</button>
             </div>
 
             <div class="flex flex-col">

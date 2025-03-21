@@ -31,6 +31,10 @@ pre {
     @apply text-xs;
 }
 
+.input-style {
+    @apply rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:border-transparent focus:outline-none focus:ring focus:ring-cyan-500;
+}
+
 /* #app {
     @apply text-sm;
 } */

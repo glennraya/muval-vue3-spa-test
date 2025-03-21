@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import axios from '../plugins/axios';
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import axios from '../../plugins/axios';
 
+const route = useRoute();
 const router = useRouter();
+const taskId = route.params.id;
 
 const task = ref({
     title: '',
@@ -11,7 +13,7 @@ const task = ref({
     status: 'pending',
 });
 
-// Validation error state
+// Validation state
 const validationError = ref<Record<string, string[]>>({});
 
 // Clear validation errors
@@ -21,15 +23,21 @@ const clearError = (field: string) => {
     }
 };
 
-const handleSubmit = async () => {
+onMounted(() => {
+    axios.get(`/api/tasks/${taskId}/edit`).then((response) => {
+        task.value = response.data.task;
+    });
+});
+
+const handleUpdate = async () => {
     await axios
-        .post(`/api/tasks`, {
+        .patch(`/api/tasks/${taskId}`, {
             title: task.value.title,
             description: task.value.description,
             status: task.value.status,
         })
         .then((response) => {
-            router.push('/dashboard');
+            router.push('/dashboard'); // Redirect to dashboard on success
         })
         .catch((error: unknown) => {
             if (axios.isAxiosError(error) && error.response?.data?.errors) {
@@ -43,19 +51,17 @@ const handleSubmit = async () => {
 
 <template>
     <div class="flex flex-col">
-        <h1 class="mb-4 text-center text-4xl font-bold">Create New Task</h1>
+        <h1 class="mb-4 text-center text-4xl font-bold">Update Task</h1>
         <form
-            @submit.prevent="handleSubmit"
+            @submit.prevent="handleUpdate"
             class="flex w-[440px] flex-col gap-4 rounded-xl bg-white p-8 shadow-xl shadow-black/5"
         >
             <div class="flex flex-col">
                 <label for="title">Title</label>
                 <input
-                    autofocus
                     id="title"
                     type="text"
-                    placeholder="Bench press 300lbs."
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:border-transparent focus:outline-none focus:ring focus:ring-cyan-500"
                     :class="{ 'border-2 border-red-500': validationError.title }"
                     v-model="task.title"
                     @input="clearError('title')"
@@ -73,8 +79,7 @@ const handleSubmit = async () => {
                 <textarea
                     id="description"
                     rows="5"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
-                    placeholder="Give your task a good description."
+                    class="input-style"
                     :class="{ 'border-2 border-red-500': validationError.description }"
                     v-model="task.description"
                     @input="clearError('description')"
@@ -89,7 +94,7 @@ const handleSubmit = async () => {
             <div class="flex flex-col">
                 <label for="status">Status</label>
                 <select
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
                     :class="{ 'border-2 border-red-500': validationError.status }"
                     v-model="task.status"
                 >
@@ -106,7 +111,7 @@ const handleSubmit = async () => {
             </div>
 
             <div class="flex flex-col">
-                <button class="w-full rounded-xl bg-black py-4 text-white">Create Task</button>
+                <button class="w-full rounded-xl bg-black py-4 text-white">Update</button>
             </div>
 
             <div class="flex flex-col">

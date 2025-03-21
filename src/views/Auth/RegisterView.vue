@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from '../plugins/axios';
+import axios from '../../plugins/axios';
 
 const router = useRouter();
 
@@ -48,13 +48,13 @@ const handleSubmit = async () => {
                 <input
                     id="name"
                     type="text"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
                     placeholder="Please enter your first or full name."
                     v-model="name"
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
-                     v-if="validationError.name"
+                    v-if="validationError.name"
                 >
                     {{ validationError.name[0] }}
                 </p>
@@ -65,13 +65,13 @@ const handleSubmit = async () => {
                 <input
                     id="email"
                     type="email"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
                     placeholder="Please provide us with a valid email address."
                     v-model="email"
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
-                     v-if="validationError.email"
+                    v-if="validationError.email"
                 >
                     {{ validationError.email[0] }}
                 </p>
@@ -82,13 +82,13 @@ const handleSubmit = async () => {
                 <input
                     id="password"
                     type="password"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
                     placeholder="Minimum of eight characters."
                     v-model="password"
                 />
                 <p
                     class="mt-1 font-medium text-red-500"
-                     v-if="validationError.password"
+                    v-if="validationError.password"
                 >
                     {{ validationError.password[0] }}
                 </p>
@@ -99,7 +99,7 @@ const handleSubmit = async () => {
                 <input
                     id="confirm"
                     type="password"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
                     placeholder="Please confirm your password."
                     v-model="password_confirmation"
                 />

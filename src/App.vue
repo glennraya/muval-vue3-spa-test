@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { useAuthStore } from './stores/auth';
+import SignOutIcon from './assets/icons/SignOutIcon.vue';
+import DashboardIcon from './assets/icons/DashboardIcon.vue';
+import LockIcon from './assets/icons/LockIcon.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -32,32 +35,16 @@ const handleLogout = async () => {
                             class="flex items-center gap-2 rounded-xl bg-black px-6 py-2 text-white decoration-transparent transition duration-300 ease-in-out hover:bg-gray-700 active:scale-90"
                             v-if="$route.path !== '/dashboard' && authStore.isAuthenticated"
                         >
+                            <DashboardIcon />
                             <span>Dashboard</span>
                         </RouterLink>
-
-                        <span
-                            class="flex items-center gap-2 rounded-xl bg-black px-6 py-2 text-white decoration-transparent opacity-30"
-                            v-else
-                            >Dashboard</span
-                        >
 
                         <template v-if="!authStore.isAuthenticated">
                             <RouterLink
                                 to="/login"
                                 class="flex items-center gap-2 rounded-xl bg-black px-6 py-2 text-white decoration-transparent shadow-xl shadow-blue-600/20 transition duration-300 ease-in-out hover:scale-110 hover:bg-gray-700 active:scale-90"
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    class="size-4"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
+                                <LockIcon />
                                 <span>Login</span>
                             </RouterLink>
                         </template>
@@ -67,7 +54,8 @@ const handleLogout = async () => {
                                 @click.prevent="handleLogout"
                                 class="flex items-center gap-2 rounded-xl bg-red-600 px-6 py-2 text-white decoration-transparent transition duration-300 ease-in-out hover:bg-red-700 active:scale-90"
                             >
-                                Sign Out
+                                <SignOutIcon />
+                                <span>Sign Out</span>
                             </button>
                         </template>
                     </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import axios from '../plugins/axios';
+import axios from '../../plugins/axios';
 
 interface Task {
     id: number;

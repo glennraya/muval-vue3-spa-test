@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from '../plugins/axios';
+import axios from '../../plugins/axios';
 
 const router = useRouter();
 
@@ -35,14 +35,14 @@ const handleLogin = async () => {
         <h1 class="mb-4 text-center text-3xl font-bold">Login</h1>
         <form
             @submit.prevent="handleLogin"
-            class="flex w-[540px] flex-col gap-3 rounded-xl bg-white p-8 shadow-lg shadow-black/5"
+            class="flex w-[340px] max-w-screen-sm flex-col gap-3 rounded-xl border-[5px] border-cyan-600/30 bg-white p-8 shadow-lg shadow-black/5"
         >
             <div class="flex flex-col">
                 <label for="email">Email</label>
                 <input
                     id="email"
                     type="email"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
                     placeholder="walterwhite@mail.com"
                     v-model="email"
                 />
@@ -59,7 +59,7 @@ const handleLogin = async () => {
                 <input
                     id="password"
                     type="password"
-                    class="rounded-xl border border-gray-300 p-3 shadow-md shadow-black/5 focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                    class="input-style"
                     v-model="password"
                 />
                 <p

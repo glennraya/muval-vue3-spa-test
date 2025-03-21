@@ -12,31 +12,31 @@ const router = createRouter({
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: () => import('../views/DashboardView.vue'),
+            component: () => import('../views/Dashboard/Index.vue'),
             meta: { requiresAuth: true }
         },
         {
             path: '/register',
             name: 'register',
             meta: { requiresGuest: true },
-            component: () => import('../views/RegisterView.vue'),
+            component: () => import('../views/Auth/RegisterView.vue'),
         },
         {
             path: '/login',
             name: 'login',
-            component: () => import('../views/LoginView.vue'),
+            component: () => import('../views/Auth/LoginView.vue'),
             meta: { requiresGuest: true }
         },
         {
             path: '/tasks/create',
             name: 'task.create',
-            component: () => import('../views/CreateTaskView.vue'),
+            component: () => import('../views/Task/Create.vue'),
             meta: { requiresAuth: true }
         },
         {
             path: '/tasks/:id/edit',
             name: 'task.edit',
-            component: () => import('../views/EditTaskView.vue'),
+            component: () => import('../views/Task/Edit.vue'),
             meta: { requiresAuth: true }
         }
 
